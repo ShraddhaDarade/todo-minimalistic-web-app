@@ -5,7 +5,6 @@ import functions
 todos = functions.get_todos()
 
 def add_todo():
-
     todo = st.session_state["new_todo"]
     todos.append(todo)
     functions.write_todos(todos)
@@ -18,8 +17,10 @@ st.title("My Todo App")
 st.subheader("This is my todo app")
 st.write("This app is to increase your productivity")
 
+# Create a list to store todos that need to be removed
 todos_to_remove = []
 
+# Display todos with checkboxes
 for idx, todo in enumerate(todos):
     checkbox = st.checkbox(todo, key=todo)
     
@@ -27,14 +28,13 @@ for idx, todo in enumerate(todos):
     if checkbox:
         todos_to_remove.append(todo)
 
-# After the iteration, remove the checked todos
+# Remove checked todos after the loop
 for todo in todos_to_remove:
     todos.remove(todo)
 
 # Write the updated todos list back to the file
 if todos_to_remove:
     functions.write_todos(todos)
-
 
 # Input field to add a new todo
 st.text_input(label="Add a new todo", 
